@@ -1,0 +1,22 @@
+{
+  "name": "kikenbutsu-otsu4-quiz-app",
+  "version": "1.0.0",
+  "description": "危険物取扱者【乙種4類】予想問題演習帳（Capacitorアプリ）",
+  "scripts": {
+    "sync": "npx cap sync",
+    "open:ios": "npx cap open ios",
+    "open:android": "npx cap open android"
+  },
+  "dependencies": {
+    "@capacitor/core": "^8.4.2",
+    "@capacitor/preferences": "^8.0.0",
+    "@capacitor/share": "^8.0.1",
+    "@capacitor-community/admob": "^8.0.0",
+    "@capacitor-community/in-app-review": "^8.0.0"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^8.4.2",
+    "@capacitor/ios": "^8.4.2",
+    "@capacitor/android": "^8.4.2"
+  }
+}

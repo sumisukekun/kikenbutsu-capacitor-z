@@ -1,0 +1,8 @@
+{
+  "appId": "com.businessmaker.kikenotsu4",
+  "appName": "危険物取扱者【乙種4類】予想問題演習帳",
+  "webDir": "www",
+  "server": {
+    "androidScheme": "https"
+  }
+}

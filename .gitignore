@@ -1,0 +1,29 @@
+# 依存パッケージ（npm installで再生成できるため除外）
+node_modules/
+
+# iOSのビルド生成物（CocoaPods・ビルド出力）
+ios/App/Pods/
+ios/App/build/
+ios/App/App.xcworkspace/xcuserdata/
+
+# Androidのビルド生成物
+android/.gradle/
+android/build/
+android/app/build/
+android/local.properties
+
+# OS/エディタ関連
+.DS_Store
+.vscode/
+
+# Android Studio(JVM)のクラッシュログ（誤って生成されることがある）
+hs_err_pid*.log
+
+# 署名鍵・パスワード情報（絶対にGitにコミットしない）
+*.jks
+*.keystore
+*.pem
+README_鍵の情報_絶対に無くさないでください.txt
+
+# ※ ios/ と android/ フォルダ自体はコミットに含めてください。
+#    Codemagic はこの中の Xcode プロジェクトを直接ビルドします。

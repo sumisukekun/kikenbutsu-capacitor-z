@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">危険物取扱者【乙種4類】予想問題演習帳</string>
+    <string name="title_activity_main">危険物取扱者【乙種4類】予想問題演習帳</string>
+    <string name="package_name">com.businessmaker.kikenotsu4</string>
+    <string name="custom_url_scheme">com.businessmaker.kikenotsu4</string>
+</resources>
