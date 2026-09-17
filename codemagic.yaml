@@ -1,0 +1,70 @@
+workflows:
+  ios-testflight:
+    name: 危険物取扱者【乙種4類】予想問題演習帳 - iOS ビルド → TestFlight配信
+    max_build_duration: 60
+    instance_type: mac_mini_m2
+
+    integrations:
+      app_store_connect: codemagic_api_key
+
+    environment:
+      groups:
+        - kikenbutsu_credentials
+      vars:
+        BUNDLE_ID: "com.businessmaker.kikenotsu4"
+        XCODE_PROJECT: "ios/App/App.xcodeproj"
+        XCODE_SCHEME: "App"
+      node: 22.11.0
+      xcode: latest
+      cocoapods: default
+
+    triggering:
+      events:
+        - push
+      branch_patterns:
+        - pattern: main
+          include: true
+          source: true
+
+    scripts:
+      - name: 依存パッケージのインストール
+        script: |
+          npm install
+
+      - name: Capacitorのネイティブプロジェクト同期
+        script: |
+          npx cap sync ios
+
+      - name: ビルド番号を自動設定
+        script: |
+          cd ios/App
+          BUILD_NUMBER=$(date +%s)
+          sed -i '' "s/CURRENT_PROJECT_VERSION = [0-9]*;/CURRENT_PROJECT_VERSION = $BUILD_NUMBER;/g" App.xcodeproj/project.pbxproj
+          echo "Build number set to $BUILD_NUMBER"
+          cd ../..
+
+      - name: 証明書・プロビジョニングプロファイルを自動設定（App Store配信用）
+        script: |
+          keychain initialize
+          app-store-connect fetch-signing-files "$BUNDLE_ID" \
+            --type IOS_APP_STORE \
+            --certificate-key @env:CERTIFICATE_PRIVATE_KEY \
+            --create
+          keychain add-certificates
+          xcode-project use-profiles
+
+      - name: ipaファイルをビルド
+        script: |
+          xcode-project build-ipa \
+            --project "$XCODE_PROJECT" \
+            --scheme "$XCODE_SCHEME"
+
+    artifacts:
+      - build/ios/ipa/*.ipa
+      - /tmp/xcodebuild_logs/*.log
+
+    publishing:
+      app_store_connect:
+        auth: integration
+        submit_to_testflight: false
+        submit_to_app_store: false
