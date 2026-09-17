@@ -8,6 +8,8 @@ workflows:
       app_store_connect: codemagic_api_key
 
     environment:
+      groups:
+        - otsu4_credentials
       vars:
         BUNDLE_ID: "com.businessmaker.kikenotsu4"
         XCODE_PROJECT: "ios/App/App.xcodeproj"
